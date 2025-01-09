@@ -12,11 +12,17 @@ declare module "fastify" {
 
 app.register(Routes);
 
-app.listen({ port: 3000 }, (err, addres) => {
-  if (err) {
-    console.error(err.message);
-    process.exit(1);
-  } else {
-    console.log(`Server running on address: ${addres}`);
+app.listen(
+  {
+    host: "0.0.0.0",
+    port: process.env.PORT ? Number(process.env.Port) : 3000,
+  },
+  (err, addres) => {
+    if (err) {
+      console.error(err.message);
+      process.exit(1);
+    } else {
+      console.log(`Server running on address: ${addres}`);
+    }
   }
-});
+);
