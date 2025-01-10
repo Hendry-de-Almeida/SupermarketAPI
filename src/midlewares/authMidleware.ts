@@ -13,20 +13,8 @@ export default function authMidleware(role: string) {
       if (!authorization) return response.status(401).send("Acesso negado.");
       const token = authorization?.split(" ")[1];
 
-      const { id } = jwt.verify(token, process.env.JWT_SECRET || "") as User;
+      const user = jwt.verify(token, process.env.JWT_SECRET || "") as User;
 
-      const user = await prisma.users.findUnique({
-        where: {
-          id: id,
-        },
-        select: {
-          id: true,
-          name: true,
-          role: true,
-        },
-      });
-
-      if (!user) return response.status(401).send("Acesso negado.");
       request.user = user;
 
       if (request.user.role !== role)

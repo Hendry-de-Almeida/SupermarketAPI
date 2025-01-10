@@ -91,7 +91,7 @@ export class Admin {
         },
       });
 
-      return response.status(201).send(`Balconista removido com sucesso`);
+      return response.status(200).send(`Balconista removido com sucesso`);
     } catch (error) {
       throw new Error("Erro ao deletar.");
     }
